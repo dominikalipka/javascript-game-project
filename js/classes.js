@@ -1,11 +1,12 @@
+let gameBoard = document.getElementById('board');
+let scoreElm = document.getElementById('score');
+
 class Game {
     constructor () {
+        this.gameBoard = gameBoard;
         this.snake = null;
         this.item = null;
-    }
-
-    countScore () {
-        
+        this.score = 0;
     }
 
     startGame () {
@@ -22,17 +23,35 @@ class Game {
         setInterval(() => {
             this.snake.moveForward();
             this.snake.draw();
-            if (this.snake.x + this.snake.width > 100  || this.snake.x < 0 || this.snake.y + this.snake.height > 100 || this.snake.y < 0) {
+            this.eatItem();
+            if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
                 alert('You lost!');
                 this.restartGame();
+                this.restartScore();
             }
 
          }, 100);
     }
 
+    eatItem () {
+        if (this.snake.x === this.item.x && this.snake.y === this.item.y) {
+            this.score += 10;
+            scoreElm.innerHTML = this.score;
+            this.item.remove();
+            this.item = new Item ();
+            this.item.create();
+            this.item.draw();
+        }
+    }
+
     restartGame () {
-        this.snake.x = 50;
-        this.snake.y = 50
+        this.snake.x = 300;
+        this.snake.y = 300;
+    }
+
+    restartScore () {
+        this.score = 0;
+        scoreElm.innerHTML = this.score;
     }
 
 
@@ -65,12 +84,12 @@ class Game {
 
 class Snake {
     constructor () {
-        this.gameBoard = document.getElementById('board');
+        this.gameBoard = gameBoard;
         this.snake = null
-        this.x = 50;
-        this.y = 50;
-        this.width = 3;
-        this.height = 3;
+        this.x = 300;
+        this.y = 300;
+        this.width = 20;
+        this.height = 20;
         this.direction = 'Right';
 
     }
@@ -81,10 +100,10 @@ class Snake {
     }
 
     draw () {
-        this.snake.style.width = this.width + '%';
-        this.snake.style.height = this.height + '%';
-        this.snake.style.left = this.x + '%';
-        this.snake.style.top = this.y + '%';
+        this.snake.style.width = this.width + 'px';
+        this.snake.style.height = this.height + 'px';
+        this.snake.style.left = this.x + 'px';
+        this.snake.style.top = this.y + 'px';
     }
     moveForward () {
         switch(this.direction) {
@@ -104,28 +123,29 @@ class Snake {
     }
 
     moveUp () {
-        this.y--;
+        this.y-=20;
     }
 
     moveDown () {
-        this.y++;
+        this.y+=20;
     }
 
     moveLeft () {
-        this.x--;
+        this.x-=20;
     }
 
     moveRight () {
-        this.x++;
+        this.x+=20;
     }
+
 }
 
 class Item {
     constructor () {
         this.gameBoard = document.getElementById('board');
         this.item = null;
-        this.x = Math.floor(Math.random() * 100)
-        this.y = Math.floor(Math.random() * 100)
+        this.x = Math.floor(Math.random() * 30) * 20;
+        this.y = Math.floor(Math.random() * 30) * 20;
 
     }
     create () {
@@ -135,10 +155,13 @@ class Item {
     }
 
     draw () {
-        this.item.style.width = 3 + '%';
-        this.item.style.height = 3 + '%';
-        this.item.style.left = this.x + '%';
-        this.item.style.top = this.y + '%';
+        this.item.style.width = 20 + 'px';
+        this.item.style.height = 20 + 'px';
+        this.item.style.left = this.x + 'px';
+        this.item.style.top = this.y + 'px';
     }
     
+    remove () {
+        this.gameBoard.removeChild(this.item);
+    }
 }
