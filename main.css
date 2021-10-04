@@ -63,7 +63,14 @@ h2 {
 
 .static-obstacle {
     position: absolute;
-    background-image: url(/images/static-obstacle\ 1.png);
+    background-image: url(/images/static-obstacle-1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.moving-obstacle {
+    position: absolute;
+    background-image: url(/images/moving-obstacle.png);
     background-repeat: no-repeat;
     background-size: cover;
 }

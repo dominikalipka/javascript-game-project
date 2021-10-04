@@ -7,7 +7,9 @@ class Game {
         this.snake = null;
         this.snakebody = null;
         this.item = null;
-        this.obstacle = null;
+        this.obstaclesArray = [];
+        this.movingObstaclesArray = [];
+        this.currentTime = 0;
         this.score = 0;
     }
 
@@ -27,6 +29,8 @@ class Game {
         this.addEventListeners();
     
         setInterval(() => {
+            this.currentTime++;
+            
             this.snake.moveForward();
             this.snake.draw();
 
@@ -34,18 +38,42 @@ class Game {
             this.snakebody.draw();
             
             this.eatItem();
-            this.hitWall();
-            
+            this.hitWallOrObstacle();
 
+            if (this.score > 50 && this.currentTime % 20 === 0) {
+                let newMovingObstacle = new MovingObstacle ();
+                newMovingObstacle.create();
+                this.movingObstaclesArray.push(newMovingObstacle);
+            }
+
+            this.movingObstaclesArray.forEach( (obstacle) => {
+                //update obstacle positions
+                obstacle.moveDown();
+                obstacle.draw();
+            });
+            
          }, 100);
     }
 
-    hitWall () {
+    hitWallOrObstacle () {
         if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
                 alert('You lost!');
-                this.restartGame();
-                this.restartScore();
+                window.location.reload();
+                // this.restartGame();
+                // this.restartScore();
+                // this.removeStaticObstacles ();
             }
+
+        this.obstaclesArray.forEach ((obstacle) => {
+            if (this.snake.x === obstacle.x && this.snake.y === obstacle.y) {
+                alert('You lost!');
+                window.location.reload();
+                // this.restartGame();
+                // this.restartScore();
+                // this.removeStaticObstacles ();
+            }
+        })
+        
     }
 
     eatItem () {
@@ -61,24 +89,41 @@ class Game {
     }
 
     addStaticObstacles () {
-       if (this.score > 30 && this.score < 150) {
-                this.obstacle = new StaticObstacle ();
-                this.obstacle.create();
-                this.obstacle.draw();
+        if (this.score > 30 && this.score < 150) {
+                let newObstacle = new StaticObstacle ();
+                newObstacle.create();
+                newObstacle.draw();
+                this.obstaclesArray.push(newObstacle);
+                console.log(this.obstaclesArray);
         } 
     }
 
-    restartGame () {
-        this.snake.x = 300;
-        this.snake.y = 300;
-        this.snakebody.x = 300;
-        this.snakebody.y = 300;
-    }
+    // addMovingObstacles () {
+    //     if (this.score > 200 && this.currentTime % 10 === 0) {
+    //         let newMovingObstacle = new MovingObstacle ();
+    //         newMovingObstacle.create();
+    //         newMovingObstacle.draw();
+    //     }
+    // }
 
-    restartScore () {
-        this.score = 0;
-        scoreElm.innerHTML = this.score;
-    }
+    // removeStaticObstacles () {
+    //     this.obstaclesArray.forEach ((obstacle) =>  {
+    //         obstacle.remove();
+    //         this.obstaclesArray.shift();
+    //     })
+    // }
+
+    // restartGame () {
+    //     this.snake.x = 300;
+    //     this.snake.y = 300;
+    //     this.snakebody.x = 300;
+    //     this.snakebody.y = 300;
+    // }
+
+    // restartScore () {
+    //     this.score = 0;
+    //     scoreElm.innerHTML = this.score;
+    // }
 
 
     addEventListeners () {
@@ -209,5 +254,22 @@ class StaticObstacle extends Item {
         this.item = document.createElement('div');
         this.item.className = 'static-obstacle'
         this.gameBoard.appendChild(this.item);
+    }
+}
+
+class MovingObstacle extends Item {
+    constructor() {
+        super();
+
+        this.x = Math.floor(Math.random() * 600);
+        this.y = 0;
+    }
+    create () {
+        this.item = document.createElement('div');
+        this.item.className = 'moving-obstacle'
+        this.gameBoard.appendChild(this.item);
+    }
+    moveDown() {
+        this.y = this.y + 20;
     }
 }
