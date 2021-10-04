@@ -5,7 +5,9 @@ class Game {
     constructor () {
         this.gameBoard = gameBoard;
         this.snake = null;
+        this.snakebody = null;
         this.item = null;
+        this.obstacle = null;
         this.score = 0;
     }
 
@@ -14,23 +16,36 @@ class Game {
         this.snake.create();
         this.snake.draw();
 
+        this.snakebody = new SnakeBody ();
+        this.snakebody.create();
+        this.snakebody.draw();
+
         this.item = new Item ();
         this.item.create();
         this.item.draw();
 
         this.addEventListeners();
-
+    
         setInterval(() => {
             this.snake.moveForward();
             this.snake.draw();
+
+            this.snakebody.moveForward();
+            this.snakebody.draw();
+            
             this.eatItem();
-            if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
+            this.hitWall();
+            
+
+         }, 100);
+    }
+
+    hitWall () {
+        if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
                 alert('You lost!');
                 this.restartGame();
                 this.restartScore();
             }
-
-         }, 100);
     }
 
     eatItem () {
@@ -41,12 +56,23 @@ class Game {
             this.item = new Item ();
             this.item.create();
             this.item.draw();
+            this.addStaticObstacles();
         }
+    }
+
+    addStaticObstacles () {
+       if (this.score > 30 && this.score < 150) {
+                this.obstacle = new StaticObstacle ();
+                this.obstacle.create();
+                this.obstacle.draw();
+        } 
     }
 
     restartGame () {
         this.snake.x = 300;
         this.snake.y = 300;
+        this.snakebody.x = 300;
+        this.snakebody.y = 300;
     }
 
     restartScore () {
@@ -62,21 +88,25 @@ class Game {
                     return;
                 }
                 this.snake.direction = 'Left';
+                this.snakebody.direction = 'Left';
         }   else if (event.key === 'ArrowRight') {
                 if (this.snake.direction === 'Left') {
                     return;
                 }
                 this.snake.direction = 'Right';
+                this.snakebody.direction = 'Right';
         }   else if (event.key === 'ArrowUp') {
                 if (this.snake.direction === 'Down') {
                     return;
                 }
                 this.snake.direction = 'Up';
+                this.snakebody.direction = 'Up';
         }   else if (event.key === 'ArrowDown') {
              if (this.snake.direction === 'Up') {
                     return;
                 }
                 this.snake.direction = 'Down';
+                this.snakebody.direction = 'Down';
         }
         })
     }
@@ -140,6 +170,14 @@ class Snake {
 
 }
 
+class SnakeBody extends Snake {
+    create () {
+        this.snake = document.createElement('div');
+        this.snake.className = 'snake snakebody'
+        this.gameBoard.appendChild(this.snake);
+    }
+}
+
 class Item {
     constructor () {
         this.gameBoard = document.getElementById('board');
@@ -163,5 +201,13 @@ class Item {
     
     remove () {
         this.gameBoard.removeChild(this.item);
+    }
+}
+
+class StaticObstacle extends Item {
+    create () {
+        this.item = document.createElement('div');
+        this.item.className = 'static-obstacle'
+        this.gameBoard.appendChild(this.item);
     }
 }
