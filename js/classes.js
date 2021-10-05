@@ -38,9 +38,31 @@ class Game {
             this.snakebody.draw();
             
             this.eatItem();
-            this.hitWallOrObstacle();
 
-            if (this.score > 50 && this.currentTime % 20 === 0) {
+
+            // HIT WALL
+            if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
+                alert('You lost!');
+                window.location.reload();
+                // this.restartGame();
+                // this.restartScore();
+                // this.removeStaticObstacles ();
+            }
+
+            // HIT STATIC OBSTACLES
+            this.obstaclesArray.forEach ((obstacle) => {
+                if (this.snake.x === obstacle.x && this.snake.y === obstacle.y) {
+                    alert('You lost!');
+                    window.location.reload();
+                    // this.restartGame();
+                    // this.restartScore();
+                    // this.removeStaticObstacles ();
+                    }
+            })
+
+
+            // CREATE MOVING OBSTACLES
+            if (this.score > 10 && this.currentTime % 25 === 0) {
                 let newMovingObstacle = new MovingObstacle ();
                 newMovingObstacle.create();
                 this.movingObstaclesArray.push(newMovingObstacle);
@@ -51,29 +73,24 @@ class Game {
                 obstacle.moveDown();
                 obstacle.draw();
             });
+
+            // HIT MOVING OBSTACLES
+            this.movingObstaclesArray.forEach ((obstacle) => {
+                if (this.snake.x === obstacle.x && this.snake.y === obstacle.y ) {
+                    alert('You lost!');
+                    window.location.reload();
+                }
+            })
+
+            // DELETE MOVING OBSTACLES
+            this.movingObstaclesArray.forEach ((obstacle) => {
+                if (obstacle.y === 600) {
+                    obstacle.remove();
+                    this.movingObstaclesArray.shift();
+                }
+            })
             
          }, 100);
-    }
-
-    hitWallOrObstacle () {
-        if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
-                alert('You lost!');
-                window.location.reload();
-                // this.restartGame();
-                // this.restartScore();
-                // this.removeStaticObstacles ();
-            }
-
-        this.obstaclesArray.forEach ((obstacle) => {
-            if (this.snake.x === obstacle.x && this.snake.y === obstacle.y) {
-                alert('You lost!');
-                window.location.reload();
-                // this.restartGame();
-                // this.restartScore();
-                // this.removeStaticObstacles ();
-            }
-        })
-        
     }
 
     eatItem () {
@@ -261,7 +278,7 @@ class MovingObstacle extends Item {
     constructor() {
         super();
 
-        this.x = Math.floor(Math.random() * 600);
+        this.x = Math.floor(Math.random() * 30) * 20;
         this.y = 0;
     }
     create () {
@@ -270,6 +287,6 @@ class MovingObstacle extends Item {
         this.gameBoard.appendChild(this.item);
     }
     moveDown() {
-        this.y = this.y + 20;
+        this.y = this.y + 10;
     }
 }

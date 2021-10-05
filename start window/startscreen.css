@@ -37,4 +37,12 @@ body {
     padding: 20px;
     background-color: white;
     border: black 2px solid;
+    border-radius: 10px;
+}
+
+#message a:hover {
+    color: white;
+    background-color: black;
+     border: white 2px solid;
+     border-radius: 10px;
 }
