@@ -79,7 +79,14 @@ class Game {
     }
 
     addMovingObstacles () {
-        if (this.score > 150 && this.currentTime % 25 === 0) {
+        if (this.score > 100 && this.score < 200 && this.currentTime % 25 === 0) {
+            let newMovingObstacle = new MovingObstacle ();
+            newMovingObstacle.create();
+            this.movingObstaclesArray.push(newMovingObstacle);
+            console.log(this.movingObstaclesArray);
+        }
+
+        if (this.score >= 200 && this.currentTime % 10 === 0) {
             let newMovingObstacle = new MovingObstacle ();
             newMovingObstacle.create();
             this.movingObstaclesArray.push(newMovingObstacle);
@@ -104,19 +111,13 @@ class Game {
     hitWallOrStaticObstacleOrMovingObstacle () { // SHOULD REWRITE THIS METHOD -> TOO REPETITIVE
         // HIT WALL
         if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
-            alert('You lost!');
             this.restartGame();
-            this.restartScore();
-            this.removeStaticObstacles ();
         }
 
         // HIT STATIC OBSTACLES
         this.staticObstaclesArray.forEach ((obstacle) => {
             if (this.snake.x === obstacle.x && this.snake.y === obstacle.y) {
-                alert('You lost!');
                 this.restartGame();
-                this.restartScore();
-                this.removeStaticObstacles ();
                 }
         })
 
@@ -126,27 +127,21 @@ class Game {
                 this.snake.x + obstacle.width > obstacle.x &&
                 this.snake.y < obstacle.y + obstacle.height &&
                 this.snake.y + this.snake.height > obstacle.y) {
-                alert('You lost!');
                 this.restartGame();
-                this.restartScore();
-                this.removeStaticObstacles ();
             }
         })
     }
 
-
     restartGame () {
+        alert("You lost :( Let's try one more time, shall we?");
         this.snake.x = 300;
         this.snake.y = 300;
         this.snakebody.x = 300;
         this.snakebody.y = 300;
-    }
-
-    restartScore () {
         this.score = 0;
         scoreElm.innerHTML = this.score;
+        this.removeStaticObstacles();
     }
-
 
     addEventListeners () {
         document.addEventListener('keydown', (event) => {

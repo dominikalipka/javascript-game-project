@@ -1,5 +1,3 @@
-let gameBoard = document.getElementById('board');
-
 class Item {
     constructor () {
         this.gameBoard = document.getElementById('board');
