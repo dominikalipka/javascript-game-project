@@ -17,6 +17,7 @@ class Game {
     }
 
     startGame () {
+
         this.snake = new Snake ();
         this.snake.create();
         this.snake.draw();
@@ -218,6 +219,11 @@ class Game {
         if (this.score === 300) {
             //PAUSE THE GAME:
             alert('Oh no! You flew too close to the black hole and now the spaceship navigation is all messed up... Learn quickly how to steer it and collect the second part of the stars. You are half way through!')
+
+            this.snake.x = 300;
+            this.snake.y = 300;
+            this.snakebody.x = 300;
+            this.snakebody.y = 300;
             
             // REMOVE ALL STATIC OBSTACLES:
             this.staticObstaclesArray.forEach ((obstacle) =>  {
@@ -241,6 +247,8 @@ class Game {
     showWinScreen () {
         if (this.score === 500) {
             this.snake = null;
+            document.getElementById('win').play();
+            document.getElementById('music').pause();
             this.modal = document.getElementById('modal-with-background');
             this.modal.style.visibility = 'visible';
             this.modalBtn = document.getElementById('modal-btn');
@@ -252,5 +260,14 @@ class Game {
 
     }
 }
+
+// MUSIC
+
+document.addEventListener('keydown', musicPlay);
+function musicPlay() {
+    document.getElementById('music').play();
+    document.removeEventListener('keydown', musicPlay);
+}
+
 
 export default Game;
