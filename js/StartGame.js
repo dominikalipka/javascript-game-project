@@ -8,5 +8,5 @@ function musicPlay() {
 
 const newGame = new Game ();
 
-//newGame.startGame();
+newGame.startGame();
 

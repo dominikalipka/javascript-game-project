@@ -133,6 +133,7 @@ class Game {
     }
 
     restartGame () {
+        this.playLostSound();
         alert("You lost :( Let's try one more time, shall we?");
         this.snake.x = 300;
         this.snake.y = 300;
@@ -145,62 +146,130 @@ class Game {
 
     addEventListeners () {
         document.addEventListener('keydown', (event) => {
-            if(event.key === 'ArrowLeft') {
-                if (this.snake.direction === 'Right') {
+            if (event.key === 'ArrowLeft') {
+                if (this.score < 300) {
+                    if (this.snake.direction === 'Right') {
                     return;
-                }
-                this.snake.direction = 'Left';
-                this.snakebody.direction = 'Left';
-        }   else if (event.key === 'ArrowRight') {
-                if (this.snake.direction === 'Left') {
+                    }
+                    this.snake.direction = 'Left';
+                    this.snakebody.direction = 'Left';
+                } else {
+                    if (this.snake.direction === 'Left') {
                     return;
+                    }
+                    this.snake.direction = 'Right';
+                    this.snakebody.direction = 'Right';
                 }
-                this.snake.direction = 'Right';
-                this.snakebody.direction = 'Right';
-        }   else if (event.key === 'ArrowUp') {
-                if (this.snake.direction === 'Down') {
+            } else if (event.key === 'ArrowRight') {
+                if (this.score < 300) {
+                    if (this.snake.direction === 'Left') {
                     return;
-                }
-                this.snake.direction = 'Up';
-                this.snakebody.direction = 'Up';
-        }   else if (event.key === 'ArrowDown') {
-             if (this.snake.direction === 'Up') {
+                    }
+                    this.snake.direction = 'Right';
+                    this.snakebody.direction = 'Right';
+                } else {
+                    if (this.snake.direction === 'Right') {
                     return;
+                    }
+                    this.snake.direction = 'Left';
+                    this.snakebody.direction = 'Left';
                 }
-                this.snake.direction = 'Down';
-                this.snakebody.direction = 'Down';
-        }
+            }   else if (event.key === 'ArrowUp') {
+                if (this.score < 300) {
+                    if (this.snake.direction === 'Down') {
+                    return;
+                    }
+                    this.snake.direction = 'Up';
+                    this.snakebody.direction = 'Up';
+                } else {
+                    if (this.snake.direction === 'Up') {
+                    return;
+                    }
+                    this.snake.direction = 'Down';
+                    this.snakebody.direction = 'Down';
+                }
+            }   else if (event.key === 'ArrowDown') {
+                if (this.score < 300) {
+                    if (this.snake.direction === 'Up') {
+                    return;
+                    }
+                    this.snake.direction = 'Down';
+                    this.snakebody.direction = 'Down';
+                } else {
+                    if (this.snake.direction === 'Down') {
+                    return;
+                    }
+                    this.snake.direction = 'Up';
+                    this.snakebody.direction = 'Up';
+                }
+            }   
         })
     }
 
-    addEventListenersNextLevel () {
-        document.addEventListener('keydown', (event) => {
-            if(event.key === 'ArrowLeft') {
-                if (this.snake.direction === 'Left') {
-                    return;
-                }
-                this.snake.direction = 'Right';
-                this.snakebody.direction = 'Right';
-        }   else if (event.key === 'ArrowRight') {
-                if (this.snake.direction === 'Right') {
-                    return;
-                }
-                this.snake.direction = 'Left';
-                this.snakebody.direction = 'Left';
-        }   else if (event.key === 'ArrowUp') {
-                if (this.snake.direction === 'Up') {
-                    return;
-                }
-                this.snake.direction = 'Down';
-                this.snakebody.direction = 'Down';
-        }   else if (event.key === 'ArrowDown') {
-             if (this.snake.direction === 'Down') {
-                    return;
-                }
-                this.snake.direction = 'Up';
-                this.snakebody.direction = 'Up';
-        }
-        })
+    // addEventListeners () {
+    //     document.addEventListener('keydown', (event) => {
+    //         if(event.key === 'ArrowLeft') {
+    //             if (this.snake.direction === 'Right') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Left';
+    //             this.snakebody.direction = 'Left';
+    //     }   else if (event.key === 'ArrowRight') {
+    //             if (this.snake.direction === 'Left') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Right';
+    //             this.snakebody.direction = 'Right';
+    //     }   else if (event.key === 'ArrowUp') {
+    //             if (this.snake.direction === 'Down') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Up';
+    //             this.snakebody.direction = 'Up';
+    //     }   else if (event.key === 'ArrowDown') {
+    //          if (this.snake.direction === 'Up') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Down';
+    //             this.snakebody.direction = 'Down';
+    //     }
+    //     })
+    // }
+
+    // addEventListenersNextLevel () {
+    //     document.addEventListener('keydown', (event) => {
+    //         if(event.key === 'ArrowLeft') {
+    //             if (this.snake.direction === 'Left') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Right';
+    //             this.snakebody.direction = 'Right';
+    //     }   else if (event.key === 'ArrowRight') {
+    //             if (this.snake.direction === 'Right') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Left';
+    //             this.snakebody.direction = 'Left';
+    //     }   else if (event.key === 'ArrowUp') {
+    //             if (this.snake.direction === 'Up') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Down';
+    //             this.snakebody.direction = 'Down';
+    //     }   else if (event.key === 'ArrowDown') {
+    //          if (this.snake.direction === 'Down') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Up';
+    //             this.snakebody.direction = 'Up';
+    //     }
+    //     })
+    // }
+
+    // SOUND EFFECTS
+
+    playLostSound () {
+        document.getElementById('lost-sound').play();
     }
 }
 

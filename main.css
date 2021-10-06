@@ -43,6 +43,7 @@ h2 {
     position: absolute;
     box-shadow: 0 0 30px rgb(41, 191, 255),
     0 0 10px rgb(41, 127, 255);
+    z-index: 100;
 }
 
 .snakebody {
@@ -51,26 +52,45 @@ h2 {
     box-shadow: 0 0 30px rgb(41, 191, 255),
     0 0 10px rgb(41, 127, 255);
     transition-delay: 70ms;
+    z-index: 100;
 }
 
 
 .item {
     background-color: rgb(255, 251, 128);
     position: absolute;
-    box-shadow: 0 0 30px rgba(252, 245, 194, 0.5),
-    0 0 10px rgba(253, 247, 158, 0.4);
+    box-shadow: 0 0 30px rgba(252, 245, 194, 0.911),
+    0 0 10px rgba(253, 247, 158, 0.918);
+    z-index: 100;
+    border-radius: 50%;
 }
 
 .static-obstacle {
     position: absolute;
-    background-image: url(/images/static-obstacle-1.png);
+    background-image: url(/images/static-obstacle-3.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .moving-obstacle {
     position: absolute;
-    background-image: url(/images/moving-obstacle.png);
+    background-image: url(/images/moving-obstacle-2.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/* .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    height: 500px;
+    width: 700px;
+    text-align: center;
+}
+
+.modal-header h3 {
+    padding: 30px;
+    font-size: 40px;
+} */
