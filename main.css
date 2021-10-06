@@ -79,18 +79,66 @@ h2 {
     background-size: cover;
 }
 
-/* .modal {
+#modal-with-background {
+    visibility: hidden;
+
+}
+
+.modal {
     position: absolute;
+    z-index: 200;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    height: 500px;
-    width: 700px;
+    background-color: rgb(0, 0, 0);
+    height: 400px;
+    width: 800px;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.406);
+    background-image: url(/images/pngwing.com.png);
+    background-repeat: no-repeat;
 }
 
 .modal-header h3 {
-    padding: 30px;
+    padding-top: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
     font-size: 40px;
-} */
+    color: white;
+}
+
+.modal-body h3 {
+    padding-top: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+    font-size: 30px;
+}
+
+.modal-footer button {
+    background-color: rgb(0, 0, 0);
+    border: rgb(255, 255, 255) 2px solid;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    font-family: 'Gemunu Libre',
+    sans-serif; 
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+}
+
+.modal-footer button:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: rgb(0, 0, 0) 2px solid;
+    border-radius: 10px;
+}
+
+.modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.639);
+}

@@ -20,8 +20,9 @@ body {
     background-color: rgba(0, 0, 0, 0.646);
 }
 
+
 #message h3{
-    font-size: 48px;
+    font-size: 40px;
 }
 
 #message p {
@@ -43,6 +44,6 @@ body {
 #message a:hover {
     color: white;
     background-color: black;
-     border: white 2px solid;
-     border-radius: 10px;
+    border: white 2px solid;
+    border-radius: 10px;
 }

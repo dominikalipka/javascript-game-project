@@ -1,0 +1,59 @@
+ // addEventListeners () {
+    //     document.addEventListener('keydown', (event) => {
+    //         if(event.key === 'ArrowLeft') {
+    //             if (this.snake.direction === 'Right') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Left';
+    //             this.snakebody.direction = 'Left';
+    //     }   else if (event.key === 'ArrowRight') {
+    //             if (this.snake.direction === 'Left') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Right';
+    //             this.snakebody.direction = 'Right';
+    //     }   else if (event.key === 'ArrowUp') {
+    //             if (this.snake.direction === 'Down') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Up';
+    //             this.snakebody.direction = 'Up';
+    //     }   else if (event.key === 'ArrowDown') {
+    //          if (this.snake.direction === 'Up') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Down';
+    //             this.snakebody.direction = 'Down';
+    //     }
+    //     })
+    // }
+
+    // addEventListenersNextLevel () {
+    //     document.addEventListener('keydown', (event) => {
+    //         if(event.key === 'ArrowLeft') {
+    //             if (this.snake.direction === 'Left') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Right';
+    //             this.snakebody.direction = 'Right';
+    //     }   else if (event.key === 'ArrowRight') {
+    //             if (this.snake.direction === 'Right') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Left';
+    //             this.snakebody.direction = 'Left';
+    //     }   else if (event.key === 'ArrowUp') {
+    //             if (this.snake.direction === 'Up') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Down';
+    //             this.snakebody.direction = 'Down';
+    //     }   else if (event.key === 'ArrowDown') {
+    //          if (this.snake.direction === 'Down') {
+    //                 return;
+    //             }
+    //             this.snake.direction = 'Up';
+    //             this.snakebody.direction = 'Up';
+    //     }
+    //     })
+    // }

@@ -30,8 +30,9 @@ class Game {
         this.item.draw();
 
         this.addEventListeners();
+        
     
-        setInterval(() => {
+        this.gameInterval = setInterval(() => {
             this.currentTime++;
             
             this.snake.moveForward();
@@ -46,6 +47,8 @@ class Game {
             this.removeMovingObstacles();
 
             this.hitWallOrStaticObstacleOrMovingObstacle();
+
+            this.showWinScreen();
             
          }, 100);
     }
@@ -59,6 +62,7 @@ class Game {
             this.item.create();
             this.item.draw();
             this.addStaticObstacles();
+            this.changeNavigation();
         }
     }
 
@@ -79,14 +83,14 @@ class Game {
     }
 
     addMovingObstacles () {
-        if (this.score > 100 && this.score < 200 && this.currentTime % 25 === 0) {
+        if (this.score > 100 && this.score < 200 && this.currentTime % 30 === 0) {
             let newMovingObstacle = new MovingObstacle ();
             newMovingObstacle.create();
             this.movingObstaclesArray.push(newMovingObstacle);
             console.log(this.movingObstaclesArray);
         }
 
-        if (this.score >= 200 && this.currentTime % 10 === 0) {
+        if (this.score >= 200 && this.currentTime % 15 === 0) {
             let newMovingObstacle = new MovingObstacle ();
             newMovingObstacle.create();
             this.movingObstaclesArray.push(newMovingObstacle);
@@ -108,7 +112,7 @@ class Game {
         })
     }
 
-    hitWallOrStaticObstacleOrMovingObstacle () { // SHOULD REWRITE THIS METHOD -> TOO REPETITIVE
+    hitWallOrStaticObstacleOrMovingObstacle () {
         // HIT WALL
         if (this.snake.x + this.snake.width > 600  || this.snake.x < 0 || this.snake.y + this.snake.height > 600 || this.snake.y < 0) {
             this.restartGame();
@@ -142,6 +146,10 @@ class Game {
         this.score = 0;
         scoreElm.innerHTML = this.score;
         this.removeStaticObstacles();
+        this.movingObstaclesArray.forEach ((obstacle) =>  {
+            obstacle.remove();
+        })
+        this.movingObstaclesArray = [];
     }
 
     addEventListeners () {
@@ -206,70 +214,42 @@ class Game {
         })
     }
 
-    // addEventListeners () {
-    //     document.addEventListener('keydown', (event) => {
-    //         if(event.key === 'ArrowLeft') {
-    //             if (this.snake.direction === 'Right') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Left';
-    //             this.snakebody.direction = 'Left';
-    //     }   else if (event.key === 'ArrowRight') {
-    //             if (this.snake.direction === 'Left') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Right';
-    //             this.snakebody.direction = 'Right';
-    //     }   else if (event.key === 'ArrowUp') {
-    //             if (this.snake.direction === 'Down') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Up';
-    //             this.snakebody.direction = 'Up';
-    //     }   else if (event.key === 'ArrowDown') {
-    //          if (this.snake.direction === 'Up') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Down';
-    //             this.snakebody.direction = 'Down';
-    //     }
-    //     })
-    // }
+    changeNavigation () {
+        if (this.score === 300) {
+            //PAUSE THE GAME:
+            alert('Oh no! You flew too close to the black hole and now the spaceship navigation is all messed up... Learn quickly how to steer it and collect the second part of the stars. You are half way through!')
+            
+            // REMOVE ALL STATIC OBSTACLES:
+            this.staticObstaclesArray.forEach ((obstacle) =>  {
+            obstacle.remove();
+            })
+            this.staticObstaclesArray = [];
 
-    // addEventListenersNextLevel () {
-    //     document.addEventListener('keydown', (event) => {
-    //         if(event.key === 'ArrowLeft') {
-    //             if (this.snake.direction === 'Left') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Right';
-    //             this.snakebody.direction = 'Right';
-    //     }   else if (event.key === 'ArrowRight') {
-    //             if (this.snake.direction === 'Right') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Left';
-    //             this.snakebody.direction = 'Left';
-    //     }   else if (event.key === 'ArrowUp') {
-    //             if (this.snake.direction === 'Up') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Down';
-    //             this.snakebody.direction = 'Down';
-    //     }   else if (event.key === 'ArrowDown') {
-    //          if (this.snake.direction === 'Down') {
-    //                 return;
-    //             }
-    //             this.snake.direction = 'Up';
-    //             this.snakebody.direction = 'Up';
-    //     }
-    //     })
-    // }
-
-    // SOUND EFFECTS
+            // REMOVE ALL MOVING OBSTACLES:
+            this.movingObstaclesArray.forEach ((obstacle) =>  {
+               obstacle.remove();
+            })
+            this.movingObstaclesArray = [];
+        }
+        
+    }
 
     playLostSound () {
         document.getElementById('lost-sound').play();
+    }
+
+    showWinScreen () {
+        if (this.score === 500) {
+            this.snake = null;
+            this.modal = document.getElementById('modal-with-background');
+            this.modal.style.visibility = 'visible';
+            this.modalBtn = document.getElementById('modal-btn');
+            this.modalBtn.addEventListener('click', () => {
+              location.reload();
+            
+            })
+        }
+
     }
 }
 
