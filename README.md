@@ -1,6 +1,6 @@
 # All you need to know about SPACE SNEK
 
-<img width="500" alt="space snek" src="./images/the-game.png">
+<img width="700" alt="space snek" src="./images/the-game.png">
 
 
 The user's spaceship is going to move like a snake but it's not going to become longer. That's also why the game is called snek, not snake.
