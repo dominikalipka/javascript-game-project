@@ -4,7 +4,9 @@
 
 ## Intro 
 
-The user's spaceship is going to move like a snake but it's not going to become longer. That's also why the game is called snek, not snake.
+Become an astronaut and help the crew collect the stars!
+The spaceship is going to move like a snake but it's not going to become longer after collecting stars. 
+That's also why the game is called snek, not snake :)
 
 
 ## How to play
