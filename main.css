@@ -3,7 +3,7 @@ body {
     font-family: 'Gemunu Libre',
         sans-serif;
     color: white;
-    background-image: url(/images/2.png);
+    background-image: url(../images/2.png);
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
