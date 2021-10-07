@@ -2,7 +2,7 @@ body {
     margin: 40px;
     font-family: 'Gemunu Libre',
     sans-serif;
-    background-image: url(./images/2.png);
+    background-image: url(../images/2.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -67,14 +67,14 @@ h2 {
 
 .static-obstacle {
     position: absolute;
-    background-image: url(/images/static-obstacle-3.png);
+    background-image: url(../images/static-obstacle-3.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .moving-obstacle {
     position: absolute;
-    background-image: url(/images/moving-obstacle-2.png);
+    background-image: url(../images/moving-obstacle-2.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -95,7 +95,7 @@ h2 {
     width: 800px;
     text-align: center;
     background-color: rgb(0, 0, 0);
-    background-image: url(/images/pngwing.com.png);
+    background-image: url(../images/pngwing.com.png);
     background-position-y: -50px;
     background-position-x: -50px;
     background-repeat: no-repeat;
