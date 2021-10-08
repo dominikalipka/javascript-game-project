@@ -1,6 +1,6 @@
 import Game from "./GameClass.js";
 
-const newGame = new Game ();
+const newGame = new Game();
 
 newGame.startGame();
 

@@ -76,10 +76,6 @@ class Game {
                 let newObstacle = new StaticObstacle ();
                 newObstacle.create();
                 newObstacle.draw();
-                if (newObstacle.x === this.item.x && newObstacle.y === this.item.y) {
-                    newObstacle.create();
-                    newObstacle.draw();
-                }
                 this.staticObstaclesArray.push(newObstacle);
         }    
     }
@@ -226,7 +222,7 @@ class Game {
     changeNavigation () {
         if (this.score === 350) {
             // PAUSE THE GAME:
-            alert('Oh no! You flew too close to the black hole and now the spaceship navigation is all messed up... Learn quickly how to steer it and collect the second part of the stars. You are half way through!')
+            alert('Oh no! You flew too close to the black hole and now the spaceship navigation is all messed up... Learn quickly how to steer it and collect the last part of the stars. 150 to go!')
 
             // START SNEK FROM THE MIDDLE OF THE BOARD
             this.snake.x = 300;
