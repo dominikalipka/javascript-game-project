@@ -32,8 +32,9 @@ class Game {
 
         this.addEventListeners();
         
-    
-        this.gameInterval = setInterval(() => {
+        setTimeout(() => {
+           setInterval(() => {
+            
             this.currentTime++;
             
             this.snake.moveForward();
@@ -51,7 +52,10 @@ class Game {
 
             this.showWinScreen();
             
-        }, 100);
+        }, 100); 
+        }, 3000);
+
+        
     }
 
     collectItemAndAddStaticObstacle () {
@@ -72,12 +76,12 @@ class Game {
                 let newObstacle = new StaticObstacle ();
                 newObstacle.create();
                 newObstacle.draw();
+                if (newObstacle.x === this.item.x && newObstacle.y === this.item.y) {
+                    newObstacle.create();
+                    newObstacle.draw();
+                }
                 this.staticObstaclesArray.push(newObstacle);
-        } 
-        if (this.score === 100) {
-            document.getElementsByClassName('static-obstacle').style.backgroundImage = 'url(../images/static-obstacle-5.png)';
-        }
-        
+        }    
     }
 
     removeStaticObstacles () {
@@ -160,7 +164,7 @@ class Game {
     addEventListeners () {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
-                if (this.score < 400) {
+                if (this.score < 350) {
                     if (this.snake.direction === 'Right') {
                     return;
                     }
@@ -174,7 +178,7 @@ class Game {
                     this.snakebody.direction = 'Right';
                 }
             } else if (event.key === 'ArrowRight') {
-                if (this.score < 400) {
+                if (this.score < 350) {
                     if (this.snake.direction === 'Left') {
                     return;
                     }
@@ -188,7 +192,7 @@ class Game {
                     this.snakebody.direction = 'Left';
                 }
             }   else if (event.key === 'ArrowUp') {
-                if (this.score < 400) {
+                if (this.score < 350) {
                     if (this.snake.direction === 'Down') {
                     return;
                     }
@@ -202,7 +206,7 @@ class Game {
                     this.snakebody.direction = 'Down';
                 }
             }   else if (event.key === 'ArrowDown') {
-                if (this.score < 400) {
+                if (this.score < 350) {
                     if (this.snake.direction === 'Up') {
                     return;
                     }
@@ -219,15 +223,8 @@ class Game {
         })
     }
 
-
-    // changeStaticObstacles () {
-    //     if (this.score === 100) {
-    //         document.getElementsByClassName('static-obstacle').style.backgroundImage = 'url(../images/static-obstacle-5.png)';
-    //     }
-    // }
-
     changeNavigation () {
-        if (this.score === 400) {
+        if (this.score === 350) {
             // PAUSE THE GAME:
             alert('Oh no! You flew too close to the black hole and now the spaceship navigation is all messed up... Learn quickly how to steer it and collect the second part of the stars. You are half way through!')
 
